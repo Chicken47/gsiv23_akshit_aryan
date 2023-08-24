@@ -44,6 +44,7 @@ const MovieList = () => {
   }, [searchQuery]);
 
   const searchMovie = () => {
+    setLoading(true);
     const options = {
       method: "GET",
       headers: {
@@ -60,10 +61,13 @@ const MovieList = () => {
       )
         .then((response) => response.json())
         .then((response) => {
-          console.log(response.results);
+          setLoading(false);
           setMovies(response.results);
         })
-        .catch((err) => console.error(err));
+        .catch((err) => {
+          alert(err);
+          setLoading(false);
+        });
     }
   };
 
